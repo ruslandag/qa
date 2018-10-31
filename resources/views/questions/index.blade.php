@@ -11,14 +11,18 @@
                     @foreach($questions as $q)
                     <div class="media">
                         <div class="media-body">
-                            <h4 class="mt-0">{{$q->title}}</h4>
+                            <h3 class="mt-0"><a href="{{ $q->url }}">{{$q->title}}</a></h3>
+                            <p class="lead">
+                                Asked by
+                                <a href="{{ $q->user->url }}">{{ $q->user->name }}</a>
+                                <small class="text-muted">{{ $q->created_date }}</small>
+                            </p>
                             {{ str_limit($q->body, 250) }}
                         </div>
                     </div>
                     @endforeach
-                    <div class="text-xs-center">
                         {{ $questions->links() }}
-                    </div>    
+  
                 </div>
             </div>
         </div>
