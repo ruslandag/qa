@@ -16,6 +16,10 @@ class Question extends Model
         $this->attributes['title']=$value;
         $this->attributes['slug']=str_slug($value);
     }
+    
+    public function setUserIdAttribute($value){
+        $this->attributes['user_id']=$value;
+    }
 
     public function getUrlAttribute(){
         return route('question.show', $this->id);

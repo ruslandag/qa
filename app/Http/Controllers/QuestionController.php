@@ -38,7 +38,13 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Console.log(auth()->user()->id);   
+        $question = new Question;
+        $question->title=$request->title;
+        $question->body=$request->body;
+        $question->user_id=auth()->user()->id;
+        $question->save();
+        return redirect()->route('question.index')->with('success');
     }
 
     /**
