@@ -8,6 +8,7 @@
                 <div class="card-header">
                     <div class="d-flex flex-row justify-content-between">
                         <h2>All Questions</h2>
+                        
                         <div>
                             <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Ask Your Question</button>
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -58,10 +59,16 @@
                 </div>
 
                 <div class="card-body">
+                    @include('partials._messages')
                     @foreach($questions as $q)
                     <div class="media">
                         <div class="media-body">
-                            <h3 class="mt-0"><a href="{{ $q->url }}">{{$q->title}}</a></h3>
+                            <div class="d-flex flex-row justify-content-between">
+                                <h3 class="mt-0"><a href="{{ $q->url }}">{{$q->title}}</a></h3>
+                                <div>
+                                    <a href="{{ route('question.edit', ['id'=>$q->id]) }}" role="button" class="btn btn-link">Edit</a>
+                                </div>
+                            </div>
                             <p class="lead">
                                 Asked by
                                 <a href="{{ $q->user->url }}">{{ $q->user->name }}</a>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Question;
 use Illuminate\Http\Request;
+use App\Http\Requests\AskQuestionRequest;
 
 class QuestionController extends Controller
 {
@@ -36,7 +37,7 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AskQuestionRequest $request)
     {
         //Console.log(auth()->user()->id);   
         $question = new Question;
@@ -44,7 +45,7 @@ class QuestionController extends Controller
         $question->body=$request->body;
         $question->user_id=auth()->user()->id;
         $question->save();
-        return redirect()->route('question.index')->with('success');
+        return redirect()->route('question.index')->with('success','Your question has been submitted!');
     }
 
     /**
@@ -66,7 +67,7 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        return view('questions.edit', ['question'=>$question]);
     }
 
     /**
@@ -76,9 +77,14 @@ class QuestionController extends Controller
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(AskQuestionRequest $request, Question $question)
     {
-        //
+        $question->update([
+            // $request->only('title','body')
+            'title'=>$request->title,
+            'body'=>$request->body
+        ]);
+        return redirect(url('/question'))->with('success', "Your question has been updated.");
     }
 
     /**
