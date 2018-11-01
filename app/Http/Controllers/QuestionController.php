@@ -56,7 +56,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
+        return view('questions.show',['question'=>$question]);
     }
 
     /**
@@ -80,7 +80,7 @@ class QuestionController extends Controller
     public function update(AskQuestionRequest $request, Question $question)
     {
         $question->update([
-            // $request->only('title','body')
+            //$request->only('title','body')
             'title'=>$request->title,
             'body'=>$request->body
         ]);
@@ -95,6 +95,7 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+        return redirect('/question')->with('success', "Your question has been deleted.");
     }
 }

@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submin" class="btn btn-outline-primary">Add Question</button>
+                                        <button type="submit" class="btn btn-outline-primary">Add Question</button>
                                     </div>
                                 </form>
                                 </div>
@@ -64,9 +64,14 @@
                     <div class="media">
                         <div class="media-body">
                             <div class="d-flex flex-row justify-content-between">
-                                <h3 class="mt-0"><a href="{{ $q->url }}">{{$q->title}}</a></h3>
+                                <h3 class="mt-0"><a href="{{ $q->url }}">{{$q->title}}</a></h4>
                                 <div>
-                                    <a href="{{ route('question.edit', ['id'=>$q->id]) }}" role="button" class="btn btn-link">Edit</a>
+                                    <a href="{{ route('question.edit', ['question'=>$q]) }}" role="button" class="btn btn-link text-success">Edit</a>
+                                    <form style="display: inline" action="{{ route('question.destroy', ['question'=>$q]) }}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <input type="submit" role="button" class="btn btn-link text-danger" value="Delete" onClick="return confirm('Уверены что хотите удалить вопрос?')" >
+                                    </form>
                                 </div>
                             </div>
                             <p class="lead">
